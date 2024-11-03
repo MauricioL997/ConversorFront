@@ -1,0 +1,292 @@
+// Variables de colores para el tema visual
+$blue-300: #93c5fd;
+$blue-400: #60a5fa;
+$blue-500: #3b82f6;
+$blue-600: #2563eb;
+$blue-700: #1d4ed8;
+$purple-600: #9333ea;
+$purple-700: #7e22ce;
+$gray-300: #d1d5db;
+$gray-400: #9ca3af;
+$gray-500: #6b7280;
+$gray-700: #374151;
+$gray-800: #1f2937;
+$black: #000000;
+$white: #ffffff;
+
+// Mixins para estilos reutilizables
+@mixin glassmorphism {
+  // Aplica un efecto de vidrio con opacidad y desenfoque
+  background: rgba($black, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+@mixin gradient-text {
+  // Aplica un degradado de color en el texto
+  background: linear-gradient(to right, $blue-400, $purple-600);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+// Contenedor principal que ocupa toda la pantalla
+.container {
+  width: 100vw; // 100% del ancho de la ventana
+  height: 100vh; // 100% de la altura de la ventana
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  position: relative;
+  background-image: url('../../../../public/LoginMonedas.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  &::before {
+    // Añade una capa oscura encima de la imagen de fondo
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba($black, 0.3);
+  }
+}
+
+// Caja de login (login-box)
+.login-box {
+  width: 100%;
+  max-width: 24rem;
+  position: relative;
+  z-index: 10;
+  padding: 2rem;
+  border-radius: 1rem;
+  @include glassmorphism; // Aplica el efecto de vidrio
+  border: none; // Sin borde sólido
+
+  &::before {
+    // Crea un borde de resplandor suave alrededor del cuadro
+    content: '';
+    position: absolute;
+    inset: -2px; // Extiende el borde para eliminar cualquier borde oscuro visible
+    background: linear-gradient(135deg, rgba($blue-500, 0.5), rgba($purple-600, 0.5));
+    opacity: 0.7;
+    filter: blur(15px);
+    z-index: 0;
+    pointer-events: none;
+  }
+}
+
+// Header (encabezado del cuadro de inicio de sesión)
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    @include gradient-text; // Aplica el degradado en el texto del título
+    text-shadow: 0 0 20px rgba($blue-500, 0.5);
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    color: $gray-400;
+    font-size: 1rem;
+  }
+}
+
+// Formulario
+.form {
+  background-color: rgba($black, 0.8); // Fondo oscuro semitransparente
+  backdrop-filter: blur(0.5rem);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba($black, 0.25);
+  border: 1px solid $blue-500; // Borde alrededor del formulario
+  position: relative;
+  z-index: 1;
+
+  .header {
+    margin-bottom: 2rem;
+  }
+
+  .input-grp {
+    margin-bottom: 1.5rem;
+
+    .label {
+      display: block;
+      color: $gray-300;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .input-wrap {
+      position: relative;
+
+      .input {
+        width: 100%;
+        height: 3rem;
+        background: rgba($gray-800, 0.4);
+        border: 1px solid rgba($gray-700, 0.5);
+        border-radius: 0.5rem;
+        padding: 0 1rem 0 2.5rem;
+        color: $white;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+
+        &::placeholder {
+          color: $gray-500;
+        }
+
+        &:focus {
+          border-color: $blue-500;
+          box-shadow: 0 0 0 2px rgba($blue-500, 0.2);
+          background: rgba($gray-800, 0.6);
+        }
+      }
+
+      .icon {
+        // Posiciona los iconos dentro de las entradas
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $blue-500;
+        pointer-events: none;
+      }
+
+      .btn-eye {
+        position: absolute;
+        right: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent;
+        border: none;
+        color: $gray-400;
+        cursor: pointer;
+        padding: 0.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          color: $white;
+        }
+      }
+    }
+  }
+}
+
+// Opciones de "recordar" y "olvidaste tu código"
+.options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+
+  .remember {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .switch {
+      appearance: none;
+      width: 2.5rem;
+      height: 1.25rem;
+      background: rgba($gray-700, 0.5);
+      border-radius: 1rem;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+        background: $gray-400;
+        left: 0.125rem;
+        top: 0.125rem;
+        transition: all 0.2s ease;
+      }
+
+      &:checked {
+        background: $blue-600;
+
+        &::before {
+          transform: translateX(1.25rem);
+          background: $white;
+        }
+      }
+    }
+
+    .label-sm {
+      color: $gray-400;
+      font-size: 0.875rem;
+    }
+  }
+
+  .forgot {
+    color: $blue-400;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $blue-300;
+    }
+  }
+}
+
+// Botón de login
+.btn-login {
+  width: 100%;
+  height: 3.5rem;
+  background: linear-gradient(to right, $blue-600, $purple-600);
+  border: none;
+  border-radius: 0.75rem;
+  color: $white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  &:hover {
+    background: linear-gradient(to right, $blue-700, $purple-700);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -10px rgba($blue-600, 0.5);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &.active {
+    animation: pulse 1s infinite;
+  }
+}
+
+// Texto de registro debajo del botón de login
+.signup {
+  text-align: center;
+  font-size: 0.875rem;
+  color: $gray-400;
+}
+
+// Pie de página (footer)
+.footer {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  color: $gray-500;
+  font-size: 0.75rem;
+}
+

@@ -60,10 +60,11 @@ $white: #ffffff;
   max-width: 24rem;
   position: relative;
   z-index: 10;
-  padding: 2rem;
+  padding: 0.2rem;
   border-radius: 1rem;
+  border: none;
   @include glassmorphism; // Aplica el efecto de vidrio
-  border: none; // Sin borde sólido
+
 
   &::before {
     // Crea un borde de resplandor suave alrededor del cuadro
@@ -71,7 +72,7 @@ $white: #ffffff;
     position: absolute;
     inset: -2px; // Extiende el borde para eliminar cualquier borde oscuro visible
     background: linear-gradient(135deg, rgba($blue-500, 0.5), rgba($purple-600, 0.5));
-    opacity: 0.7;
+    opacity: 0.9;
     filter: blur(15px);
     z-index: 0;
     pointer-events: none;

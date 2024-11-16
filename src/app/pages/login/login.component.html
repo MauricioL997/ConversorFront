@@ -1,27 +1,45 @@
-<div class="container">
+<div class="contenedor">
   <div class="login-box">
-    <div class="form">
+    <form class="form" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
       <div class="header">
         <h1 class="title">Fast Austral</h1>
         <p class="subtitle">Convierte divisas a velocidad supersónica</p>
       </div>
+
       <div class="input-grp">
         <label for="username" class="label">Piloto</label>
         <div class="input-wrap">
           <span class="icon user-icon"></span>
-          <input id="username" placeholder="Ingresa tu nombre clave" class="input" />
+          <input 
+            id="username" 
+            name="username" 
+            [(ngModel)]="username" 
+            placeholder="Ingresa tu nombre clave" 
+            class="input" 
+            required 
+          />
         </div>
       </div>
+
       <div class="input-grp">
         <label for="password" class="label">Código NOS</label>
         <div class="input-wrap">
           <span class="icon lock-icon"></span>
-          <input id="password" type="password" placeholder="Ingresa tu código secreto" class="input" />
+          <input 
+            id="password" 
+            name="password" 
+            [(ngModel)]="password" 
+            type="password" 
+            placeholder="Ingresa tu código secreto" 
+            class="input" 
+            required 
+          />
           <button type="button" class="btn-eye">
             <span class="icon eye-icon"></span>
           </button>
         </div>
       </div>
+
       <div class="options">
         <div class="remember">
           <input type="checkbox" id="remember" class="switch" />
@@ -29,15 +47,22 @@
         </div>
         <a href="#" class="forgot">¿Olvidaste tu código?</a>
       </div>
-      <button class="btn-login">
-        <span class="icon dollar-icon"></span>
-        <span class="btn-text">Iniciar Conversión</span>
-      </button>
-      <div class="signup">
-        ¿Nuevo en la pista? <a [routerLink]="['/register']" class="link">Únete al equipo</a>
+
+      <div class="Botones">
+        <button [disabled]="loginForm.invalid" type="submit" class="btn-login">
+          <span class="icon dollar-icon"></span>
+          <span class="btn-text">Iniciar Conversión</span>
+        </button>
+        <div *ngIf="errorLogin" class="error-message">
+          Credenciales incorrectas. Inténtalo de nuevo.
+        </div>
+        <div class="signup">
+          ¿Nuevo en la pista? <a [routerLink]="['/register']" class="link">Únete al equipo</a>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
+
   <div class="rotate-icon"></div>
   <div class="footer">
     © 2024 Fast Austral. Todos los derechos reservados. Maneja con precaución.

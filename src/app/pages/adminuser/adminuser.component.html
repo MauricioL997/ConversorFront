@@ -1,0 +1,140 @@
+<div class="conten">
+  <div class="conv-caja">
+    <div class="conv-env">
+      <div class="info-use">
+        <h1 id="title">Gestión de Usuarios</h1>
+        <p class="cnt-use">Administra los usuarios del sistema</p>
+      </div>
+
+      <div class="tabla-caja">
+        <table class="tabla-usr">
+          <thead>
+            <tr>
+              <th>Usuario</th>
+              <th>Correo</th>
+              <th>Nombre</th>
+              <th>Rol</th>
+              <th>Suscripción</th>
+              <th>Activo</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.userName }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.role }}</td>
+              <td>{{ user.type }}</td>
+              <td>
+                <button
+                  class="btn-estado"
+                  [class.activo]="user.isActive"
+                  (click)="toggleUserStatus(user.id)"
+                >
+                  <i class="icon" [ngClass]="user.isActive ? 'icon-toggle-right' : 'icon-toggle-left'"></i>
+                </button>
+              </td>
+              <td class="acciones">
+                <button class="btn-acc editar" (click)="openEditModal(user)">
+                  <i class="icon icon-edit-2"></i>
+                </button>
+                <button class="btn-acc eliminar" (click)="deleteUser(user.id)">
+                  <i class="icon icon-trash-2"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="btn-caja">
+        <button class="btn-int" (click)="openAddModal()">
+          <i class="icon icon-user-plus"></i> Agregar Usuario
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" *ngIf="isModalOpen">
+  <div class="modal-cont">
+    <h2>{{ editingUser ? 'Editar Usuario' : 'Agregar Usuario' }}</h2>
+    <form (ngSubmit)="saveUser()">
+      <div class="campo">
+        <label for="userName">Usuario</label>
+        <input
+          type="text"
+          id="userName"
+          [(ngModel)]="currentUser.userName"
+          name="userName"
+          required
+        />
+      </div>
+      <div class="campo">
+        <label for="email">Correo</label>
+        <input
+          type="email"
+          id="email"
+          [(ngModel)]="currentUser.email"
+          name="email"
+          required
+        />
+      </div>
+      <div class="campo">
+        <label for="firstName">Nombre</label>
+        <input
+          type="text"
+          id="firstName"
+          [(ngModel)]="currentUser.firstName"
+          name="firstName"
+          required
+        />
+      </div>
+      <div class="campo">
+        <label for="role">Rol</label>
+        <select
+          id="role"
+          [(ngModel)]="currentUser.role"
+          name="role"
+          required
+        >
+          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="type">Suscripción</label>
+        <select
+          id="type"
+          [(ngModel)]="currentUser.type"
+          name="type"
+          required
+        >
+          <option
+            *ngFor="let type of subscriptionTypes"
+            [value]="type"
+          >
+            {{ type }}
+          </option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="isActive">Activo</label>
+        <select
+          id="isActive"
+          [(ngModel)]="currentUser.isActive"
+          name="isActive"
+        >
+          <option [ngValue]="true">Sí</option>
+          <option [ngValue]="false">No</option>
+        </select>
+      </div>
+      <div class="btn-caja">
+        <button type="button" class="btn-fav" (click)="closeModal()">
+          Cancelar
+        </button>
+        <button type="submit" class="btn-int">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>

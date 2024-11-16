@@ -1,71 +1,39 @@
-import { Component } from '@angular/core';
-import { trigger, transition, style, animate } from '@angular/animations';
+import { Component, inject } from '@angular/core';
 import { CommonModule, NgClass } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterModule } from '@angular/router';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Router, RouterLink, RouterModule } from '@angular/router';
+import { DataAuthService } from '../../services/data-auth.service';
+import { AuthRequest } from '../../interfaces/auth-request';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, NgClass, FormsModule, RouterLink,RouterModule],
+  imports: [CommonModule, FormsModule, RouterLink, RouterModule],
   templateUrl: './login.component.html',
-  styleUrl:'./login.component.scss',
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  private showPassword: boolean = false;
-  private rememberMe: boolean = false;
-  private isNitroActive: boolean = false;
+  authService = inject(DataAuthService);
+  router = inject(Router);
+  errorLogin = false;
+  username: string = '';
+  password: string = '';
 
-constructor() {
-  this.initializeEventListeners();
-}
-private initializeEventListeners(): void {
-  const eyeButton = document.querySelector('.btn-eye');
-  const rememberSwitch = document.getElementById('remember') as HTMLInputElement;
-  const loginButton = document.querySelector('.btn-login');
 
-  eyeButton?.addEventListener('click', this.togglePasswordVisibility.bind(this));
-  rememberSwitch?.addEventListener('change', this.toggleRememberMe.bind(this));
-  loginButton?.addEventListener('click', this.activateNitro.bind(this));
-}
+  async login(loginForm: NgForm) {
+    const { username, password } = loginForm.value;
+    const authRequest: AuthRequest = { username, password };
 
-private togglePasswordVisibility(): void {
-  this.showPassword = !this.showPassword;
-  const passwordInput = document.getElementById('password') as HTMLInputElement;
-  const eyeIcon = document.querySelector('.eye-icon');
-
-  if (passwordInput && eyeIcon) {
-    passwordInput.type = this.showPassword ? 'text' : 'password';
-    eyeIcon.classList.toggle('eye-off', this.showPassword);
-  }
-}
-
-private toggleRememberMe(): void {
-  this.rememberMe = !this.rememberMe;
-}
-
-private activateNitro(): void {
-  this.isNitroActive = true;
-  const loginButton = document.querySelector('.btn-login');
-  const btnText = loginButton?.querySelector('.btn-text');
-  const btnIcon = loginButton?.querySelector('.icon');
-
-  if (loginButton && btnText && btnIcon) {
-    loginButton.classList.add('active');
-    btnText.textContent = '¡NOS Activado!';
-    btnIcon.classList.remove('dollar-icon');
-    btnIcon.classList.add('gauge-icon');
-
-    setTimeout(() => {
-      this.isNitroActive = false;
-      loginButton.classList.remove('active');
-      btnText.textContent = 'Iniciar Conversión';
-      btnIcon.classList.remove('gauge-icon');
-      btnIcon.classList.add('dollar-icon');
-      }, 1000);
+    try {
+      const authResponse = await this.authService.login(authRequest);
+      if (authResponse) {
+        this.router.navigate(['/conversor']);
+      } else {
+        this.errorLogin = true;
+      }
+    } catch (error) {
+      console.error(error);
+      this.errorLogin = true;
     }
   }
 }
-document.addEventListener('DOMContentLoaded', () => {
-  new LoginComponent();
-});

@@ -1,5 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-/* You can add global styles to this file, and also import other style files */
+/* Reset CSS global */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -20,43 +19,53 @@ time, mark, audio, video {
     font: inherit;
     vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
-body {
+
+html, body {
+    overflow: hidden; /* Añade overflow hidden aquí */
     line-height: 1;
+    font-size: 100%;
+    background-color: #111;
+    list-style-type: none;
 }
+
 ol, ul {
     list-style: none;
 }
+
 blockquote, q {
     quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
     content: '';
     content: none;
 }
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
 
-ol, ul {
-    list-style: none;
-}
-
-*, 
-*:after,
-*:before {
+/* Global styling for all elements */
+*, *:after, *:before {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
+    outline: none !important;
 }
-body{
-    font-size: 100%;
-    list-style-type: none;
+
+::ng-deep * {
+    outline: none !important;
+}
+
+a, button, input, textarea {
+  outline: none !important;
 }

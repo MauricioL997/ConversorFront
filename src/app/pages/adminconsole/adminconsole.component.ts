@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-adminconsole',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './adminconsole.component.html',
-  styleUrl: './adminconsole.component.scss'
+  styleUrls: ['./adminconsole.component.scss']
 })
 export class AdminconsoleComponent {
-
 }

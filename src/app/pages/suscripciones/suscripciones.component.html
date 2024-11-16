@@ -1,1 +1,60 @@
-<p>suscripciones works!</p>
+<div class="conten">
+  <div class="conv-caja">
+    <div class="conv-env">
+      <div class="info-use">
+        <h1 id="title">Elige tu Suscripción</h1>
+        <p class="cnt-use">Selecciona el plan que mejor se adapte a tus necesidades</p>
+      </div>
+
+      <div class="plans-grid">
+        <!-- Free Plan -->
+        <div class="plan-card" [class.active]="userSubscription === subscriptionType.Free">
+          <h2>Free</h2>
+          <p class="price">ARS 0.00<span>/mes</span></p>
+          <button *ngIf="userSubscription !== subscriptionType.Free" class="btn-int" (click)="upgradeTo(subscriptionType.Free)">Cambiar a Free</button>
+          <p *ngIf="userSubscription === subscriptionType.Free" class="current-plan">
+            Usted actualmente es usuario Free. Puede actualizar a Trial o Pro.
+          </p>
+          <ul>
+            <li><i class="icon icon-check"></i> Acceso limitado al conversor</li>
+          </ul>
+        </div>
+
+        <!-- Trial Plan -->
+        <div class="plan-card" [class.active]="userSubscription === subscriptionType.Trial">
+          <h2>Trial</h2>
+          <p class="price">ARS 500.00<span>/mes</span></p>
+          <button *ngIf="userSubscription !== subscriptionType.Trial" class="btn-int" (click)="upgradeTo(subscriptionType.Trial)">Cambiar a Trial</button>
+          <p *ngIf="userSubscription === subscriptionType.Trial" class="current-plan">
+            Usted actualmente es usuario Trial. Puede actualizar a Pro.
+          </p>
+          <ul>
+            <li><i class="icon icon-check"></i> Acceso completo al conversor</li>
+            <li><i class="icon icon-check"></i> Historial completo</li>
+            <li><i class="icon icon-check"></i> Sin anuncios</li>
+          </ul>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="plan-card" [class.active]="userSubscription === subscriptionType.Pro">
+          <h2>Pro</h2>
+          <p class="price">ARS 1500.00<span>/mes</span></p>
+          <button *ngIf="userSubscription !== subscriptionType.Pro" class="btn-int" (click)="upgradeTo(subscriptionType.Pro)">Cambiar a Pro</button>
+          <p *ngIf="userSubscription === subscriptionType.Pro" class="current-plan">
+            Usted ya es usuario Pro.
+          </p>
+          <ul>
+            <li><i class="icon icon-check"></i> Acceso ilimitado al conversor</li>
+            <li><i class="icon icon-check"></i> Historial ilimitado</li>
+            <li><i class="icon icon-check"></i> Soporte prioritario</li>
+            <li><i class="icon icon-check"></i> Sin anuncios</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="note">
+        Los precios pueden variar dependiendo de su ubicación y tipo de suscripción.
+      </p>
+    </div>
+  </div>
+</div>

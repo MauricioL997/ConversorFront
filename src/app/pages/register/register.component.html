@@ -1,58 +1,58 @@
 <main class="reg">
-    <div class="box">
+  <div class="box">
       <h1 class="title">Fast Austral</h1>
       <p class="sub">Únete a la carrera de divisas</p>
       
-      <form #registerForm="" (ngSubmit)="(registerForm)" class="form">
-        <div class="grp">
-          <label>Piloto</label>
-          <div class="wrap">
-            <i class="user"></i>
-            <input type="text" name="UserName" ngModel placeholder="Ingresa tu nombre clave" required>
+      <form #registerForm="ngForm" (ngSubmit)="register(registerForm)" class="form">
+          <div class="grp">
+              <label>Piloto</label>
+              <div class="wrap">
+                  <i class="user"></i>
+                  <input type="text" name="username" [(ngModel)]="username" placeholder="Ingresa tu nombre clave" required>
+              </div>
           </div>
-        </div>
-  
-        <div class="grp">
-          <label>Email</label>
-          <div class="wrap">
-            <i class="mail"></i>
-            <input type="email" name="Email" ngModel placeholder="Ingresa tu email" required>
+
+          <div class="grp">
+              <label>Email</label>
+              <div class="wrap">
+                  <i class="mail"></i>
+                  <input type="email" name="email" [(ngModel)]="email" placeholder="Ingresa tu email" required>
+              </div>
           </div>
-        </div>
-  
-        <div class="grp">
-          <label>Nombre</label>
-          <div class="wrap">
-            <i class="id"></i>
-            <input type="text" name="FirstName" ngModel placeholder="Ingresa tu nombre" required>
+
+          <div class="grp">
+              <label>Nombre</label>
+              <div class="wrap">
+                  <i class="id"></i>
+                  <input type="text" name="firstName" [(ngModel)]="firstName" placeholder="Ingresa tu nombre" required>
+              </div>
           </div>
-        </div>
-  
-        <div class="grp">
-          <label>Apellido</label>
-          <div class="wrap">
-            <i class="id"></i>
-            <input type="text" name="LastName" ngModel placeholder="Ingresa tu apellido" required>
+
+          <div class="grp">
+              <label>Apellido</label>
+              <div class="wrap">
+                  <i class="id"></i>
+                  <input type="text" name="lastName" [(ngModel)]="lastName" placeholder="Ingresa tu apellido" required>
+              </div>
           </div>
-        </div>
-  
-        <div class="grp">
-          <label>Código NOS</label>
-          <div class="wrap">
-            <i class="lock"></i>
-            <input type="password" name="password" ngModel placeholder="Ingresa tu código secreto" required>
+
+          <div class="grp">
+              <label>Código NOS</label>
+              <div class="wrap">
+                  <i class="lock"></i>
+                  <input type="password" name="password" [(ngModel)]="password" placeholder="Ingresa tu código secreto" required>
+              </div>
           </div>
-        </div>
-  
-        <div class="btns">
-          <button [disabled]="registerForm" class="btn" type="submit">
-            Iniciar Carrera
-          </button>
-          
-          <p *ngIf="" class="err">Error en el registro</p>
-  
-          <a [routerLink]="['/login']" class="link">¿Ya tienes equipo? Inicia Sesión</a>
-        </div>
+
+          <div class="btns">
+              <button [disabled]="registerForm.invalid" class="btn" type="submit">
+                  Iniciar Carrera
+              </button>
+              
+              <p *ngIf="errorRegister" class="err">Error en el registro</p>
+
+              <a [routerLink]="['/login']" class="link">¿Ya tienes equipo? Inicia Sesión</a>
+          </div>
       </form>
-    </div>
-  </main>
+  </div>
+</main>

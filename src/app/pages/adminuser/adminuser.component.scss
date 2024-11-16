@@ -2,10 +2,10 @@
   width: 100%;
   min-height: 100vh;
   display: flex;
+  justify-content: center;
+  align-items: flex-start;
   padding: 2rem;
   background: #000000;
-  flex-direction: column;
-  align-items: center;
 }
 
 .conv-caja {
@@ -77,7 +77,7 @@
   overflow-x: auto;
 }
 
-.tabla-mon {
+.tabla-usr {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 10px;
@@ -106,16 +106,20 @@
   }
 }
 
-.estado-ind {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-right: 10px;
-  background-color: #ff4757;
+.btn-estado {
+  background: none;
+  border: none;
+  color: #ff4757;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 
   &.activo {
-    background-color: #2ed573;
+    color: #2ed573;
+  }
+
+  &:hover {
+    transform: scale(1.2);
   }
 }
 
@@ -220,6 +224,7 @@
     text-align: center;
     background: linear-gradient(45deg, #8a2be2, #4a90e2);
     background-clip: text;
+    color: transparent;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -257,7 +262,7 @@
     padding: 1rem;
   }
 
-  .tabla-mon {
+  .tabla-usr {
     font-size: 0.8rem;
 
     th, td {

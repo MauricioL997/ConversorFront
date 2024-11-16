@@ -1,18 +1,42 @@
-<header>
-    <h1>Parking App</h1>
-    <nav>
-        <a [routerLink]="['']" routerLinkActive="link-activo" ></a>
-        @if(true){
-            <a [routerLink]="['']" routerLinkActive="link-activo" ></a>
-            <a [routerLink]="['']" routerLinkActive="link-activo" ></a>
-        }
-        <div class="usuario">
-            <a>Usuario</a>
-            <div class="dropdown">
-                <button >Cerrar sesión</button>
-            </div>
-        </div>
-        
-    </nav>
-</header>
-<router-outlet />
+<div class="dashboard-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar" [class.hidden]="!sidebarVisible">
+      <div class="sidebar-content">
+        <nav class="nav">
+          <a [routerLink]="['/conversor']" routerLinkActive="active">
+            <i class="icon icon-exchange"></i>Conversor
+          </a>
+          <a [routerLink]="['/historial']" routerLinkActive="active">
+            <i class="icon icon-history"></i>Historial
+          </a>
+          <a [routerLink]="['/suscripciones']" routerLinkActive="active">
+            <i class="icon icon-star"></i>Subscripciones
+          </a>
+          <a [routerLink]="['/adminuser']" routerLinkActive="active">
+            <i class="icon icon-users"></i>Console User
+          </a>
+          <a [routerLink]="['/monedas']" routerLinkActive="active">
+            <i class="icon icon-coins"></i>Monedas
+          </a>
+        </nav>
+        <footer class="footer">
+          <p>&copy; 2024 Conversor Austral</p>
+          <p>Todos los derechos reservados</p>
+        </footer>
+      </div>
+    </aside>
+  
+    <!-- Main Content -->
+    <main class="content" [class.expanded]="!sidebarVisible">
+      <router-outlet></router-outlet>
+    </main>
+  
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-content">
+        <h1 class="title">Conversor Austral</h1>
+        <img src="/logo.png" alt="Logo" class="iconuser" (click)="logout()">
+      </div>
+    </header>
+  </div>
+  

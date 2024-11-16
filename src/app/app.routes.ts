@@ -8,7 +8,7 @@ import { SuscripcionesComponent } from './pages/suscripciones/suscripciones.comp
 import { AdminconsoleComponent } from './pages/adminconsole/adminconsole.component';
 import { HistorialComponent } from './pages/historial/historial.component';
 import { DashboardconteinerComponent } from './pages/dashboardconteiner/dashboardconteiner.component';
-
+import { AdminUserComponent } from './pages/adminuser/adminuser.component';
 export const routes: Routes = [
     {
         path: '',
@@ -24,7 +24,7 @@ export const routes: Routes = [
         component: RegisterComponent
     },
     {
-        path: 'dashboard',
+        path: '',
         component: DashboardconteinerComponent,
         children: [
             {
@@ -36,16 +36,22 @@ export const routes: Routes = [
                 component: HistorialComponent
             },
             {
-                path: 'monedas',
-                component: MonedasComponent
-            },
-            {
                 path: 'suscripciones',
                 component: SuscripcionesComponent
             },
             {
-                path: 'adminconsole',
-                component: AdminconsoleComponent
+                path: '',
+                component: AdminconsoleComponent,
+                children: [
+                    {
+                        path: 'monedas',
+                        component: MonedasComponent
+                    },
+                    {
+                        path: 'adminuser',
+                        component: AdminUserComponent
+                    }
+                ]
             }
         ]
     },

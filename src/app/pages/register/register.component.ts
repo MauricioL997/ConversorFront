@@ -1,32 +1,43 @@
-import { CommonModule, NgClass } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { DataAuthService } from '../../services/data-auth.service';
+import { AuthRequest } from '../../interfaces/auth-request';
+import { User } from '../../interfaces/user';
+import { RegisterRequest } from '../../interfaces/register-request';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink,CommonModule,NgClass],
+  imports: [RouterLink, CommonModule, FormsModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-//  errorRegister: boolean = false;
-//
-//  constructor(private userService: UserService, private router: Router) {}
-//
-//  register(form: NgForm) {
-//    if (form.valid) {
-//      const { UserName, Email, FirstName, LastName, password } = form.value;
-//      this.userService.registerUser({ UserName, Email, FirstName, LastName, password }).subscribe(
-//        (response) => {
-//          console.log('Registration successful', response);
-//          this.router.navigate(['/login']);
-//        },
-//        (error) => {
-//          console.error('Registration failed', error);
-//          this.errorRegister = true;
-//        }
-//      );
-//    }
-//  }
+  authService = inject(DataAuthService);
+  router = inject(Router);
+  errorRegister = false;
+  username: string = '';
+  email: string = '';
+  firstName: string = '';
+  lastName: string = '';
+  password: string = '';
+
+  async register(registerForm: NgForm) {
+    const { username, email, firstName, lastName, password } = registerForm.value;
+    const registerRequest: RegisterRequest = { username, email, firstName, lastName, password };
+
+    try {
+      const success = await this.authService.register(registerRequest);
+      if (success) {
+        this.router.navigate(['/login']);
+      } else {
+        this.errorRegister = true;
+      }
+    } catch (error) {
+      console.error(error);
+      this.errorRegister = true;
+    }
+  }
 }

@@ -1,1 +1,86 @@
-<p>monedas works!</p>
+<div class="conten">
+    <div class="conv-caja">
+      <div class="conv-env">
+        <div class="info-use">
+          <h1 id="title">Listado de Monedas</h1>
+          <p class="cnt-use">Gestiona las monedas disponibles en el sistema</p>
+        </div>
+  
+        <div class="tabla-caja">
+          <table class="tabla-mon">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Leyenda</th>
+                <th>Símbolo</th>
+                <th>Índice de Convertibilidad</th>
+                <th>Activo</th>
+                <th *ngIf="isAdmin">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let currency of currencies">
+                <td>{{ currency.code }}</td>
+                <td>{{ currency.legend }}</td>
+                <td>{{ currency.symbol }}</td>
+                <td>{{ currency.convertibilityIndex }}</td>
+                <td>
+                  <span class="estado-ind" [class.activo]="currency.isActive"></span>
+                  {{ currency.isActive ? 'Activo' : 'Inactivo' }}
+                </td>
+                <td *ngIf="isAdmin" class="acciones">
+                  <button class="btn-acc editar" (click)="editCurrency(currency)">
+                    <i class="icon-edit"></i>
+                  </button>
+                  <button class="btn-acc eliminar" *ngIf="currency.id !== undefined" (click)="deleteCurrency(currency.id)">
+                    <i class="icon-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  
+        <div class="btn-caja" *ngIf="isAdmin">
+          <button class="btn-int" (click)="addCurrency()">
+            <i class="icon-plus"></i> Agregar Moneda
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal" *ngIf="showModal">
+    <div class="modal-cont">
+      <h2>{{ editingCurrency ? 'Editar' : 'Agregar' }} Moneda</h2>
+      <form (ngSubmit)="saveCurrency()">
+        <div class="campo">
+          <label for="code">Código</label>
+          <input type="text" id="code" [(ngModel)]="currentCurrency.code" name="code" required>
+        </div>
+        <div class="campo">
+          <label for="legend">Leyenda</label>
+          <input type="text" id="legend" [(ngModel)]="currentCurrency.legend" name="legend" required>
+        </div>
+        <div class="campo">
+          <label for="symbol">Símbolo</label>
+          <input type="text" id="symbol" [(ngModel)]="currentCurrency.symbol" name="symbol" required>
+        </div>
+        <div class="campo">
+          <label for="convertibilityIndex">Índice de Convertibilidad</label>
+          <input type="number" id="convertibilityIndex" [(ngModel)]="currentCurrency.convertibilityIndex" name="convertibilityIndex" required>
+        </div>
+        <div class="campo">
+          <label for="isActive">Activo</label>
+          <select id="isActive" [(ngModel)]="currentCurrency.isActive" name="isActive">
+            <option [ngValue]="true">Sí</option>
+            <option [ngValue]="false">No</option>
+          </select>
+        </div>
+        <div class="btn-caja">
+          <button type="button" class="btn-fav" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="btn-int">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>

@@ -1,1 +1,44 @@
-<p>historial works!</p>
+<div class="conten">
+    <div class="conv-caja">
+      <div class="conv-env">
+        <div class="info-use">
+          <h1 id="title">Historial de Conversiones</h1>
+          <p class="cnt-use">Registro de tus conversiones recientes</p>
+        </div>
+  
+        <div class="tabla-caja">
+          <table class="tabla-hist">
+            <thead>
+              <tr>
+                <th>Moneda de Origen</th>
+                <th>Moneda de Destino</th>
+                <th>Fecha</th>
+                <th>Cantidad Convertida</th>
+                <th>Resultado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let conversion of conversiones">
+                <td>{{ conversion.fromCurrency }}</td>
+                <td>{{ conversion.toCurrency }}</td>
+                <td>{{ conversion.date | date: 'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{ conversion.amount | currency:conversion.fromCurrency }}</td>
+                <td>{{ conversion.result | currency:conversion.toCurrency }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  
+        <div class="btn-caja" *ngIf="conversiones.length > 0">
+          <button class="btn-int" (click)="exportarHistorial()">
+            <i class="icon icon-download"></i> Exportar Historial
+          </button>
+        </div>
+  
+        <p class="nota" *ngIf="conversiones.length === 0">
+          No hay conversiones en tu historial. Realiza una conversión para verla aquí.
+        </p>
+      </div>
+    </div>
+  </div>
+  

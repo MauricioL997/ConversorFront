@@ -1,1 +1,43 @@
-<p>conversor works!</p>
+<div class="conten">
+  <div class="conv-caja">
+    <div class="conv-env">
+      <div class="info-use">
+        <p id="title">USOS DEL CONVERSOR</p>
+        <p class="cnt-use">{{ user.subscriptionId === 9 ? 'Conversiones Ilimitadas' : 'Conversiones restantes: ' + (remainingConversions < 0 ? 0 : remainingConversions) }}</p>
+      </div>
+      
+      <div class="conv-grd">
+        <div class="mon-caja">
+          <label for="monedaDestino">Selecciona la moneda destino</label>
+          <select id="monedaDestino" class="mon-sel" [(ngModel)]="conversion.targetCurrencyId">
+            <option *ngFor="let currency of currencies" [value]="currency.id">
+              {{ favoriteCurrenciesSet.has(currency.id) ? '★ ' + currency.symbol : currency.symbol }} {{currency.name}}
+            </option>
+          </select>
+        </div>
+      
+        <div class="log-caja">
+          <img src="/Dollar.png" alt="Icono Conversor" class="conv-img">
+        </div>
+      
+        <div class="mon-caja">
+          <label for="monedaOrigen">Selecciona la moneda origen</label>
+          <select id="monedaOrigen" class="mon-sel" [(ngModel)]="conversion.sourceCurrencyId">
+            <option *ngFor="let currency of currencies" [value]="currency.id">
+              {{ favoriteCurrenciesSet.has(currency.id) ? '★ ' + currency.symbol : currency.symbol }} {{currency.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mnt-caja">
+        <input type="text" class="mnt-inp" placeholder="Monto a convertir" [(ngModel)]="conversion.originalAmount">
+      </div>
+
+      <div class="btn-caja">
+        <button class="btn-int" (click)="confirmarConversion()">Intercambiar</button>
+        <button class="btn-fav" (click)="navegar('/')">Monedas Favoritas</button>
+      </div>
+    </div>
+  </div>
+</div>

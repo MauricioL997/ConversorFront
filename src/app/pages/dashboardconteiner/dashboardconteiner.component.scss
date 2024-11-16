@@ -1,0 +1,222 @@
+.dashboard-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #13131f 0%, #1a1a2e 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-container {
+  display: flex;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+// Sidebar
+.sidebar {
+  width: 250px;
+  height: 90%;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 80px;
+  left: 0;
+  transition: transform 0.3s ease;
+  z-index: 900;
+  border-right: 1px solid rgba(138, 43, 226, 0.2);
+  overflow-y: auto;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent,
+      rgba(138, 43, 226, 0.8),
+      transparent
+    );
+    animation: scan 2s linear infinite;
+  }
+
+  &.hidden {
+    transform: translateX(-100%);
+  }
+
+  .sidebar-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .nav {
+    flex: 1; /* Deja espacio flexible para el footer */
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px; /* Reducir espaciado */
+    gap: 8px; /* Reducir separación entre los elementos */
+
+    a {
+      color: #a8b2d1;
+      text-decoration: none;
+      padding: 10px 15px;
+      font-size: 18px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .icon {
+        font-size: 20px;
+      }
+
+      &:hover {
+        color: #fff;
+        background: rgba(138, 43, 226, 0.1);
+        transform: translateX(5px);
+      }
+
+      &.active {
+        color: #8a2be2;
+        font-weight: bold;
+        background: rgba(138, 43, 226, 0.2);
+        border-left: 4px solid #8a2be2;
+        padding-left: 12px;
+        text-shadow: 0px 4px 8px rgba(138, 43, 226, 0.6);
+      }
+    }
+  }
+
+  .footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px solid rgba(138, 43, 226, 0.2);
+
+    p {
+      margin: 4px 0;
+    }
+  }
+}
+
+// Topbar
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  padding: 0 20px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  z-index: 1000;
+  box-shadow: 0px 2px 5px rgba(138, 43, 226, 0.2);
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent,
+      rgba(138, 43, 226, 0.8),
+      transparent
+    );
+  }
+
+  .topbar-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .title {
+    font-size: 36px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(45deg, #8a2be2, #4a90e2, #8a2be2);
+    background-size: 200% 200%;
+    background-clip: text;
+    animation: gradientShift 5s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .iconuser {
+    position: absolute;
+    right: 20px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+      border-color: rgba(138, 43, 226, 0.8);
+    }
+  }
+}
+
+// Content
+.content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px;
+  margin-top: 80px;
+  transition: margin-left 0.3s ease;
+  background-color: rgb(0, 0, 0);
+  min-height: calc(100vh - 80px);
+
+  &.expanded {
+    margin-left: 0;
+  }
+
+  h2 {
+    font-size: 32px;
+    color: #a8b2d1;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    transform: translateX(-100%);
+
+    &.hidden {
+      transform: translateX(0);
+    }
+  }
+
+  .content {
+    margin-left: 0;
+  }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes scan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
